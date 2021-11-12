@@ -15,7 +15,7 @@ export const initialState = {
     }],
     Comments: [{
       User: {
-        nickname: 'ohyes',
+        nickname: 'oagree',
       },
       content: '이것은 더미데이터 입니다!',
     }, {
