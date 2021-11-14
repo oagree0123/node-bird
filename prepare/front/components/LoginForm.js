@@ -32,7 +32,7 @@ const LoginForm = () => {
       <div>
         <label htmlFor="user-email">이메일</label>
         <br />
-        <Input name="user-email" type="eamil" value={email} onChange={onChangeEmail} requried />
+        <Input name="user-email" type="email" value={email} onChange={onChangeEmail} requried />
       </div>
       <div>
         <label htmlFor="user-password">비밀번호</label>

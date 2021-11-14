@@ -53,7 +53,12 @@ const AppLayout = ({ children }) => {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <a href="https://github.com/oagree0123" target="_blank" rel="noreferref noopenner">Made by Oagree0123</a>
+          <a href="https://github.com/oagree0123" 
+          target="_blank" 
+          rel="noreferref noopenner"
+          >
+            Made by Oagree0123
+          </a>
         </Col>
       </Row>
       
