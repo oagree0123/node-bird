@@ -26,7 +26,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser('nodebirdsecret'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
   saveUninitialized: false,
   resave: false,
@@ -37,10 +37,6 @@ app.use(passport.session());
 
 app.get('/', (req, res) => {
   res.send('hellow express');
-});
-
-app.get('/api', (req, res) => {
-  res.send('hellow api');
 });
 
 app.get('/posts', (req, res) => {
