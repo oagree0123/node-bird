@@ -23,7 +23,10 @@ const FollowButton = ({ post }) => {
       });
     }
   }, [isFollowing]);
-
+  
+  if (post.User.id === me.id) {
+    return null;
+  }
   return (
     <Button 
       loading={followLoading || unfollowLoading} 
