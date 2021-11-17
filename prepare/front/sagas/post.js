@@ -99,22 +99,22 @@ function* addPost(action) {
 
 /* REMOVE POST */
 function removePostAPI(data) {
-  return axios.delete('/api/post', data);
+  return axios.delete(`/post/${data}`);
 }
 
 function* removePost(action) {
   try {
-    // const result = yield call(addPostAPI, action.data);
-    yield delay(1000);
+    const result = yield call(removePostAPI, action.data);
     yield put({
       type: REMOVE_POST_SUCCESS,
-      data: action.data,
-    });
+      data: result.data,
+    }); 
     yield put({
       type: REMOVE_POST_OF_ME,
       data: action.data
     });
   } catch (err) {
+    console.error(err);
     yield put({
       type: REMOVE_POST_FAILURE,
       data: err.response.data,
