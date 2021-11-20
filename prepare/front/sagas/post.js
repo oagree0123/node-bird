@@ -6,6 +6,7 @@ import {
   UPLOAD_IMAGES_REQUEST, UPLOAD_IMAGES_SUCCESS, UPLOAD_IMAGES_FAILURE,
   LIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE,
   UNLIKE_POST_REQUEST, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE,
+  LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
   LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAILURE,
   ADD_POST_REQUEST, ADD_POST_SUCCESS, ADD_POST_FAILURE,
   REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE,
@@ -92,6 +93,26 @@ function* unlikePost(action) {
     console.error(err);
     yield put({
       type: UNLIKE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+/* LOAD POST */
+function loadPostAPI(data) {
+  return axios.get(`/post/${data}`);
+}
+
+function* loadPost(action) {
+  try {
+    const result = yield call(loadPostAPI, action.data);
+    yield put({
+      type: LOAD_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: LOAD_POST_FAILURE,
       error: err.response.data,
     });
   }
@@ -203,6 +224,10 @@ function* watchUnlikePost() {
   yield takeLatest(UNLIKE_POST_REQUEST, unlikePost);
 }
 
+function* watchLoadPost() {
+  yield takeLatest(LOAD_POST_REQUEST, loadPost);
+}
+
 function* watchLoadPosts() {
   yield throttle(5000, LOAD_POSTS_REQUEST, loadPosts);
 }
@@ -225,6 +250,7 @@ export default function* postSaga() {
     fork(watchUploadImages),
     fork(watchLikePost),
     fork(watchUnlikePost),
+    fork(watchLoadPost),
     fork(watchLoadPosts),
     fork(watchAddPost),
     fork(watchRemovePost),
